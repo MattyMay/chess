@@ -8,9 +8,12 @@ package chess;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
-import javax.swing.JLabel;
-
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 
 /**
@@ -18,7 +21,9 @@ import javax.swing.JLabel;
  * @author mattm
  */
 public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
-    
+
+    static HashMap<String, ImageIcon> imgs;
+
     MyUserInterface myUserInterface;
     private final int panelLength = 700;
     private final int squareLength = this.panelLength/8;
@@ -27,6 +32,8 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
      * Creates new form ChessGUI
      */
     public ChessJFrame() {
+        imgs = new HashMap<>();
+        loadImages();
         initComponents();
         this.resignButton.addActionListener(this);
     }
@@ -66,8 +73,8 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
         dialogue.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         dialogue.setForeground(new java.awt.Color(255, 255, 255));
         dialogue.setText("jTextField1");
-        dialogue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        dialogue.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 dialogueActionPerformed(evt);
             }
         });
@@ -77,8 +84,8 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
         ipInfo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         ipInfo.setForeground(new java.awt.Color(255, 255, 255));
         ipInfo.setText("jTextField2");
-        ipInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ipInfo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 ipInfoActionPerformed(evt);
             }
         });
@@ -124,11 +131,11 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
         pack();
     }// </editor-fold>                        
 
-    private void dialogueActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void dialogueActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }                                        
 
-    private void ipInfoActionPerformed(java.awt.event.ActionEvent evt) {  
+    private void ipInfoActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }                                      
     
@@ -144,6 +151,7 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
     }
     
     protected void drawBoard(ChessGame chessGame) {
+
         this.boardPanel.removeAll();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -151,7 +159,9 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
                 int y = i * this.squareLength;
                 
                 if (chessGame.board[i][j] != null) {
-                    JLabel image = chessGame.board[i][j].image;
+//                    JLabel image = chessGame.board[i][j].image;
+                    Piece piece = chessGame.board[i][j];
+                    JLabel image = new JLabel(imgs.get(piece.pieceType + piece.playerStr));
                     image.setSize(this.squareLength, this.squareLength);
                     image.setLocation(x, y);
                     this.boardPanel.add(image);
@@ -179,5 +189,24 @@ public class ChessJFrame extends javax.swing.JFrame implements ActionListener {
             this.myUserInterface.myGamePlayer.sendMessage(this.myUserInterface.myGameInput);
         }
         
+    }
+
+    private void loadImages() {
+        try {
+            imgs.put("BB", new ImageIcon(ImageIO.read(new File("BB.png"))));
+            imgs.put("BW", new ImageIcon(ImageIO.read(new File("BW.png"))));
+            imgs.put("KB", new ImageIcon(ImageIO.read(new File("KB.png"))));
+            imgs.put("KW", new ImageIcon(ImageIO.read(new File("KW.png"))));
+            imgs.put("KnB", new ImageIcon(ImageIO.read(new File("KnB.png"))));
+            imgs.put("KnW", new ImageIcon(ImageIO.read(new File("KnW.png"))));
+            imgs.put("PB", new ImageIcon(ImageIO.read(new File("PB.png"))));
+            imgs.put("PW", new ImageIcon(ImageIO.read(new File("PW.png"))));
+            imgs.put("QB", new ImageIcon(ImageIO.read(new File("QB.png"))));
+            imgs.put("QW", new ImageIcon(ImageIO.read(new File("QW.png"))));
+            imgs.put("RB", new ImageIcon(ImageIO.read(new File("RB.png"))));
+            imgs.put("RW", new ImageIcon(ImageIO.read(new File("RW.png"))));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }

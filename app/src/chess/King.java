@@ -24,7 +24,6 @@ class King extends Piece implements Serializable{
         } else {
             this.playerStr = "W";
         }
-        this.image = this.loadImage();
     }
 
     public boolean canMove(ChessGame game, Piece[][] board) {

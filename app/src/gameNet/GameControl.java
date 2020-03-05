@@ -1,5 +1,7 @@
 package gameNet;
 
+import java.io.Serializable;
+
 /**
  * 
  * 
@@ -22,7 +24,7 @@ package gameNet;
  </ul>
  *  
  */
-public class GameControl 
+public class GameControl implements Serializable
 {   
     int serverPortNum = 54321; // Starting point for Server Port
     GameServer gameServer = null;

@@ -14,7 +14,6 @@ class Rook extends Piece implements Serializable{
         } else {
             this.playerStr = "W";
         }
-        this.image = this.loadImage();
     }
 
     @Override

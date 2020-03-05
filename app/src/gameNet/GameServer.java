@@ -7,7 +7,7 @@ import java.util.*;
 
 class GameServer extends Thread{
     public String inetAddress=null;    
-    LinkedList<GamePlayerProcess1> gamePlayers = new LinkedList<GamePlayerProcess1>();
+    LinkedList<GamePlayerProcess1> gamePlayers = new LinkedList<>();
     int portNum;
     boolean serverStarted = false;
     boolean listening = true;

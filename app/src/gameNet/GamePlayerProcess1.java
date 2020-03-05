@@ -88,7 +88,8 @@ class GamePlayerProcess1 extends Thread {
            } 
        catch (Exception e) 
            {
-              System.out.println("GamePlayerProcess1 Err: " + e);
+              System.out.println("GamePlayerProcess1 Err: ");
+              e.printStackTrace();
            }
        finally 
            {

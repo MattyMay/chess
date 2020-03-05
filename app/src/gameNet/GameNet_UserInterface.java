@@ -20,5 +20,5 @@ public interface GameNet_UserInterface
 	 * @param gamePlayer - contains the players name, and the glue information needed to connect the user 
 	 * interface to the game.  
 	 */
-	public void startUserInterface (GamePlayer gamePlayer);
+	public void startUserInterface(GamePlayer gamePlayer);
 }

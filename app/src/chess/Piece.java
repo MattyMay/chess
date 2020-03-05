@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 
 public abstract class Piece implements Serializable {
     private long uniqueID;
-    
-    JLabel image;
     String pieceType;
     String playerStr;
     Player player;
@@ -24,17 +22,7 @@ public abstract class Piece implements Serializable {
     // color.
     public Piece(Player player) {
         this.player = player;
-        
         this.uniqueID = Counter.INSTANCE.generate();
-    }
-    
-    protected JLabel loadImage() {       
-        JLabel img = null;
-        try {
-            img = new JLabel(new ImageIcon(ImageIO.read(new File(this.pieceType + this.playerStr + ".png"))));
-        } catch (IOException e) {
-        }
-        return img;
     }
 
     public ArrayList<BoardSpace> getAttackingSpaces(Piece[][] board) {
