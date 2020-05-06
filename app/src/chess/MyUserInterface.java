@@ -13,19 +13,16 @@ public class MyUserInterface implements GameNet_UserInterface {
     GamePlayer myGamePlayer;
     MyGameInput myGameInput;
     ChessGame chessGame = null;
-    
-    int clientIndex; // 0 for white 1 for black
+
+    int clientIndex = -1; // 0 for white 1 for black NOTE THIS IS BUSTED
     String activePlayer;
     String checkMessage;
     String dialogue;
     String connections;
-    
+
     BoardSpace from = null;
     BoardSpace to = null;
-    
-//    MouseListener ml;
-//    MouseMotionListener mml;
-    
+
     MyUserInterface() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -52,8 +49,9 @@ public class MyUserInterface implements GameNet_UserInterface {
     public void receivedMessage(Object objectReceived) {
         MyGameOutput myGameOutput = (MyGameOutput) objectReceived;
         chessGame = myGameOutput.myGame.chessGame;
-        this.clientIndex = myGameOutput.clientIndex;
-        
+
+        if (this.clientIndex == -1) this.clientIndex = myGameOutput.clientIndex;
+
         if (this.chessGame.getVictory() == 'b') {
             this.dialogue = "Checkmate! Black wins.";
             this.chessJFrame.setDialogue(this.dialogue);
@@ -65,13 +63,13 @@ public class MyUserInterface implements GameNet_UserInterface {
             this.chessJFrame.drawBoard(this.chessGame);
             return;
         }
-        
+
         if (this.chessGame.getActivePlayer() == 'w') {
             this.activePlayer = "White";
         } else {
             this.activePlayer = "Black";
         }
-        
+
         if (this.chessGame.getChecked() == 'w') {
             this.checkMessage = "White is in check.";
         } else if (this.chessGame.getChecked() == 'b') {
@@ -92,11 +90,10 @@ public class MyUserInterface implements GameNet_UserInterface {
         myGameInput = new MyGameInput();
         myGameInput.setName(player.getPlayerName());
         myGamePlayer.sendMessage(myGameInput);
-        
+
         this.chessJFrame.setVisible(true);
-        
-        
-        
+
+
     }
 
 }

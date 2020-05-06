@@ -14,7 +14,6 @@ public class MyGame extends GameNet_CoreGame implements Serializable {
     
     @Override
     public Object process(Object inputObj) {
-        
         MyGameInput myGameInput = (MyGameInput)inputObj;
         switch (myGameInput.cmd) {
         case MyGameInput.MOVE_PIECE:          

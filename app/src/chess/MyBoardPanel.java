@@ -14,6 +14,7 @@ public class MyBoardPanel extends JPanel implements MouseListener, MouseMotionLi
     int width = this.getWidth();
     int height = this.getHeight();
     int squareLength = width / 8;
+    boolean movingPiece = false;
 
     MyUserInterface myUserInterface;
 
@@ -78,29 +79,33 @@ public class MyBoardPanel extends JPanel implements MouseListener, MouseMotionLi
 
     @Override
     public void mousePressed(MouseEvent e) {
-//        if ((this.myUserInterface.clientIndex == 0
-//                && this.myUserInterface.activePlayer.equals("White"))
-//                || (this.myUserInterface.clientIndex == 1
-//                        && this.myUserInterface.activePlayer.equals("Black"))) {
+        if (isActivePlayer()) {
             int col = e.getX() / this.squareLength;
             int row = e.getY() / this.squareLength;
             this.myUserInterface.myGameInput.setCmd(1);
             this.myUserInterface.myGameInput.setFrom(row, col);
-            
-//        }
+
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-//        if ((this.myUserInterface.clientIndex == 0
-//                && this.myUserInterface.activePlayer.equals("White"))
-//                || (this.myUserInterface.clientIndex == 1
-//                        && this.myUserInterface.activePlayer.equals("Black"))) {
+        if (isActivePlayer()) {
             int col = e.getX() / this.squareLength;
             int row = e.getY() / this.squareLength;
             this.myUserInterface.myGameInput.setTo(row, col);
             this.myUserInterface.myGamePlayer.sendMessage(this.myUserInterface.myGameInput);
-//        }
+        }
+    }
+
+    public boolean isActivePlayer() {
+        if (this.myUserInterface.clientIndex == 0 &&
+                this.myUserInterface.activePlayer.equals("White")) {
+            return true;
+        } else if (this.myUserInterface.clientIndex == 1 &&
+                this.myUserInterface.activePlayer.equals("Black")) {
+            return true;
+        } else return false;
     }
 
 }
